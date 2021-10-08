@@ -1,3 +1,4 @@
+// @ts-nocheck 
 import { Client, VoiceChannel, Intents, MessageEmbed } from 'discord.js';
 
 import {
