@@ -51,10 +51,10 @@ client.once("ready", async() => {
     console.log("Setting up presence ...");
 	client.user!.setPresence({
 		status: "online",
-		activity: {
+		activities: [{
 			type: "WATCHING",
 			name: "VOA FARSI",
-		},
+		}],
     });
 	console.log("Ready to operate!");
 });
