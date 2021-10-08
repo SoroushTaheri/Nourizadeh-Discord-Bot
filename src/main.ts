@@ -17,7 +17,7 @@ import { createDiscordJSAdapter } from './adapter';
 const config = require("../config.json");
 
 const client:Client = new Client({
-	ws: { intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES] },
+	intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES],
 });
 const player = createAudioPlayer();
 
@@ -59,7 +59,7 @@ client.once("ready", async() => {
 	console.log("Ready to operate!");
 });
 
-client.on("message", async (message) => {
+client.on("messageCreate", async (message) => {
 	if (!message.guild) return;
     if (message.author.id === message.guild!.me!.id) return;
     if (!message.content.startsWith(config.prefix) || message.author.bot) return;
@@ -91,9 +91,9 @@ client.on("message", async (message) => {
                 getVoiceConnection(message.guild.id)?.disconnect()
             }
             break;
-		case "help":
-			return message.channel.send(
-				new MessageEmbed()
+        case "help":
+			return message.channel.send({
+				embeds: [new MessageEmbed()
 					.setColor("GOLD")
 					.setTitle("نوری زاده در میان شماست!")
 					.setAuthor("سلام و درود!")
@@ -118,8 +118,8 @@ client.on("message", async (message) => {
 						value: "**`>noriz help`**",
 					})
 					.setImage("https://i.imgur.com/giJFglt.jpg")
-					.setFooter("Nourizadeh Bot | Developed by god knows who for a noriz lover")
-			);
+					.setFooter("Nourizadeh Bot | Developed by god knows who for a noriz lover")]
+            })
 
 		default:
 			break;
